@@ -1,11 +1,15 @@
 import React from "react"
 import Die from "./Die"
-
+import Confetti from "react-confetti"
+// import useWindowSize from 'react-use/lib/useWindowSize'
 
 
 export default function App() {
     const [dice, setDice] = React.useState(allNewDice())
     const [tenzies, setTenzies] = React.useState(false)
+    // const {width, height} = useWindowSize()
+
+    let confetti = tenzies && <Confetti />
 
     React.useEffect(() => {
         const allHeld = dice.every(die => die.isHeld)
@@ -51,9 +55,12 @@ export default function App() {
             return die === prevDice[key] ? {...die, isHeld: !die.isHeld} : die
         }))
     }
+
+    
     
     return (
         <main>
+            {confetti}
             <h1 className="title">Tenzies</h1>
             <p className="instruction">Roll dice until all are the same. Click on a die face to hold it from rolling</p>
             <div className="dice-container">
